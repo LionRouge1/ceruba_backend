@@ -1,31 +1,80 @@
-<%= render @form %>
-
 <div class="my-4 d-flex align-items-center">
   <%= link_to "Edit this form", edit_form_path(@form), class: "btn btn-primary me-2" %>
-  <%= link_to "Back to forms", forms_path, class: "btn btn-secondary me-2" %>
-  <%= button_to "Destroy this form", @form, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+  <div class="input-group me-2" style="max-width: 300px;">
+    <input type="text" id="form-url" value="<%= @form_url %>" class="form-control" aria-label="Form's url" aria-describedby="button-addon2" readonly />
+    <button class="btn btn-outline-secondary btn-sm" type="button" id="button-addon2" onclick="navigator.clipboard.writeText(document.getElementById('form-url').value)">Copy URL</button>
+  </div>
+  <div class="dropdown me-2">
+    <button class="btn btn-success dropdown-toggle" type="button" id="downloadDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      Export
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+      <li>
+        <%= link_to "CSV", download_csv_form_path(@form), class: "dropdown-item" %>
+      </li>
+      <li>
+        <%= link_to "JSON", download_json_form_path(@form), class: "dropdown-item" %>
+      </li>
+      <li>
+        <%= link_to "Excel", download_excel_form_path(@form), class: "dropdown-item" %>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <% if @form.data_entries.any? %>
   <h3 class="mt-5">Data Entries</h3>
-  <table class="table table-striped table-bordered mt-3">
-    <thead class="table-dark">
-      <tr>
-        <% @form.data_entries.first.attributes.each_key do |key| %>
-          <th><%= key.titleize %></th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <% @form.data_entries.each do |entry| %>
+  <button class="btn btn-outline-info mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#dataEntriesProperties" aria-expanded="true" aria-controls="dataEntriesProperties">
+    Toggle Data Entries Properties
+  </button>
+  <div class="collapse mb-4" id="dataEntriesProperties">
+    <h4>Data Entry Properties</h4>
+    <table class="table table-striped table-bordered mt-3">
+      <thead class="table-dark">
         <tr>
-          <% entry.attributes.each_value do |value| %>
-            <td><%= value %></td>
+          <% @form.data_entries.first.attributes.each_key do |key| %>
+            <th><%= key.titleize %></th>
           <% end %>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @form.data_entries.each do |entry| %>
+          <tr>
+            <% entry.attributes.each_value do |value| %>
+              <td><%= value %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="btn btn-outline-info mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#payloadsTable" aria-expanded="false" aria-controls="payloadsTable">
+    Toggle Payloads
+  </button>
+  <div class="collapse" id="payloadsTable">
+    <h4>Payloads</h4>
+    <table class="table table-striped table-bordered mt-3">
+      <thead class="table-dark">
+        <tr>
+          <% if @payloads.present? && @payloads.first.is_a?(Hash) %>
+            <% @payloads.first.keys.each do |key| %>
+              <th><%= key.titleize %></th>
+            <% end %>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @payloads.each do |payload| %>
+          <tr>
+            <% payload.values.each do |value| %>
+              <td><%= value %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
   <div class="alert alert-info mt-4">No data entries found for this form.</div>
 <% end %>

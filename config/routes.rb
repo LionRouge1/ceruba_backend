@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :forms
+  resources :forms do
+    member do
+      get 'download_csv'
+      get 'download_excel'
+      get 'download_json'
+    end
+  end
   resources :websites
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -17,7 +23,7 @@ Rails.application.routes.draw do
   # 
   namespace :api do
     namespace :v1 do
-      post 'forms/:form_id/data_entries', to: 'data_entries#create'
+      post 'forms/:form_id/data_entries', to: 'data_entries#create', as: 'form_data_entries'
       # resources :data_entries, only: [:index, :create, :update, :destroy]
     end
   end

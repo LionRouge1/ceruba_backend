@@ -5,4 +5,9 @@ class DataEntry < ApplicationRecord
   validates :user_agent, presence: true
   validates :origin, presence: true
   validates :payload, presence: true
+
+  def email
+    payload_data = JSON.parse(payload)
+    payload_data['email']
+  end
 end

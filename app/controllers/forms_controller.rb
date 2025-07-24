@@ -1,5 +1,5 @@
 class FormsController < ApplicationController
-  before_action :set_form, only: %i[ show edit update destroy ]
+  before_action :set_form, except: %i[ index new create ]
 
   # GET /forms or /forms.json
   def index
@@ -8,7 +8,9 @@ class FormsController < ApplicationController
 
   # GET /forms/1 or /forms/1.json
   def show
+    @form_url = request.base_url + api_v1_form_data_entries_path(@form)
     @data_entries = @form.data_entries
+    @payloads = @data_entries.pluck(:payload).map { |p| JSON.parse(p) }
   end
 
   # GET /forms/new
@@ -46,6 +48,23 @@ class FormsController < ApplicationController
         format.json { render json: @form.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET /forms/1/download_csv
+  def download_csv
+    csv_data = @form.data_entries_to_csv
+    send_data csv_data, filename: "form_#{@form.id}_data_entries.csv", type: 'text/csv'
+  end
+
+  def download_excel
+    excel_data = @form.data_entries_to_excel
+    send_data excel_data, filename: "form_#{@form.id}_data_entries.xlsx", type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  end
+
+  # GET /forms/1/download_json
+  def download_json
+    json_data = @form.data_entries_to_json
+    send_data json_data, filename: "form_#{@form.id}_data_entries.json", type: 'application/json'
   end
 
   # DELETE /forms/1 or /forms/1.json

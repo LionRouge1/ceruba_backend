@@ -38,6 +38,7 @@ gem "kamal", require: false
 gem "thruster", require: false
 # gem "axlsx", "~> 2.0", ">= 2.0.1"
 # gem 'tailwindcss-rails', '~> 2.3'
+gem 'caxlsx'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
