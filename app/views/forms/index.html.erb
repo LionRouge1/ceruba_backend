@@ -1,16 +1,20 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Forms" %>
 
-<h1>Forms</h1>
+<h1 class="mb-4">Forms</h1>
 
-<div id="forms">
+<div id="forms" class="row">
   <% @forms.each do |form| %>
-    <%= render form %>
-    <p>
-      <%= link_to "Show this form", form %>
-    </p>
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <%= render form %>
+          <p>
+            <%= link_to "Show this form", form, class: "btn btn-primary" %>
+          </p>
+        </div>
+      </div>
+    </div>
   <% end %>
 </div>
 
-<%= link_to "New form", new_form_path %>
+<%= link_to "New form", new_form_path, class: "btn btn-success" %>

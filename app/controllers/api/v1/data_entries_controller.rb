@@ -17,7 +17,7 @@ class Api::V1::DataEntriesController < ApplicationController
     location = country_from_ip(remote_ip)
     user_agent = request.user_agent
     return render json: { error: 'Origin is required' }, status: :forbidden if origin.nil?
-    data_to_json = params.except(:controller, :action, :format, :id, :data_entry).to_json
+    data_to_json = params.except(:controller, :action, :format, :form_id, :data_entry).to_json
     print "Data to JSON: #{data_to_json}"
     data_entry = @form.data_entries.new({location: location, origin: origin, ip_address: remote_ip, user_agent: user_agent, payload: data_to_json})
 
