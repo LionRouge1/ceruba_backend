@@ -1,9 +1,8 @@
-<%= form_with(model: email_template) do |form| %>
+<%= form_with(model: [form, email_template], html: { class: "card p-4 shadow-sm" }) do |form| %>
   <% if email_template.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(email_template.errors.count, "error") %> prohibited this email_template from being saved:</h2>
-
-      <ul>
+    <div class="alert alert-danger">
+      <h4 class="alert-heading"><%= pluralize(email_template.errors.count, "error") %> prohibited this email_template from being saved:</h4>
+      <ul class="mb-0">
         <% email_template.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,17 +10,36 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :subject, class: "form-label" %>
+    <%= form.text_field :subject, class: "form-control" %>
+    <p class="form-text">
+      Enter the subject line for the email. You can use variables like <code>{{user_name}}</code> to personalize the subject.
+    </p>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :body, "Text Body", class: "form-label" %>
+    <%= form.text_area :body, class: "form-control", rows: 5 %>
+    <p class="form-text">
+      Enter the email body as a text template. You can use variables like <code>{{user_name}}</code> to personalize the message.
+    </p>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :html_body, "HTML Body", class: "form-label" %>
+    <%= form.rich_text_area :html_body, class: "form-control" %>
+    <p class="form-text">
+      Enter the email body as an <strong>HTML template</strong> (if your server supports HTML emails).
+      You can use variables like <code>{{user_name}}</code> to personalize the message.
+    </p>
   </div>
 
   <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.textarea :body %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

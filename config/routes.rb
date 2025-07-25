@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  resources :email_templates
   resources :forms do
     member do
       get 'download_csv'
       get 'download_excel'
       get 'download_json'
     end
+    resources :email_templates, only: [:new, :create, :edit, :update, :destroy]
   end
   resources :websites
   devise_for :users

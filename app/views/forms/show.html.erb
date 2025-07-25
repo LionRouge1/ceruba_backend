@@ -20,6 +20,11 @@
       </li>
     </ul>
   </div>
+  <% if @form.email_template.present? %>
+    <%= link_to "Edit Email Template", edit_form_email_template_path(@form, @form.email_template), class: "btn btn-warning" %>
+  <% else %>
+    <%= link_to "Add Email Template", new_form_email_template_path(@form), class: "btn btn-warning" %>
+  <% end %>
 </div>
 
 <% if @form.data_entries.any? %>
