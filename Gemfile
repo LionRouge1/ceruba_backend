@@ -39,6 +39,7 @@ gem "thruster", require: false
 # gem "axlsx", "~> 2.0", ">= 2.0.1"
 # gem 'tailwindcss-rails', '~> 2.3'
 gem 'caxlsx'
+gem 'liquid'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

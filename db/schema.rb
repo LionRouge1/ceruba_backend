@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_24_122657) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_24_234137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,6 +24,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_24_122657) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["form_id"], name: "index_data_entries_on_form_id"
+  end
+
+  create_table "email_templates", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body", null: false
+    t.bigint "emailable_id"
+    t.string "emailable_type"
+    t.string "subject", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["emailable_type", "emailable_id"], name: "index_email_templates_on_emailable_type_and_emailable_id"
+    t.index ["name"], name: "index_email_templates_on_name", unique: true
   end
 
   create_table "forms", force: :cascade do |t|

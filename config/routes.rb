@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :email_templates
   resources :forms do
     member do
       get 'download_csv'

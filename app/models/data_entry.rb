@@ -6,8 +6,13 @@ class DataEntry < ApplicationRecord
   validates :origin, presence: true
   validates :payload, presence: true
 
-  def email
-    payload_data = JSON.parse(payload)
-    payload_data['email']
+  def data_payload
+    JSON.parse(payload)
+  end
+
+  def deliver_email_if_template_exists
+    if form.email_template.present?
+      DataEntryMailer.with(data_entry: self).send_form_email.deliver_later
+    end
   end
 end

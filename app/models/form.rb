@@ -5,6 +5,7 @@ require 'caxlsx'
 class Form < ApplicationRecord
   belongs_to :website, optional: true
   has_many :data_entries, dependent: :destroy
+  has_one :email_templates, as: :emailable, dependent: :destroy
 
   def all_payloads
     data_entries.pluck(:payload).map { |p| JSON.parse(p) }
