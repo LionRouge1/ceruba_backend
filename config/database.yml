@@ -81,18 +81,19 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: ceruba_backend_production
-    username: ceruba_backend
-    password: <%= ENV["CERUBA_BACKEND_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: ceruba_backend_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: ceruba_backend_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: ceruba_backend_production_cable
-    migrations_paths: db/cable_migrate
+    database: <%= Rails.application.credentials.dig(:production, :db, :database) %>
+    username: <%= Rails.application.credentials.dig(:production, :db, :username) %>
+    password: <%= Rails.application.credentials.dig(:production, :db, :password) %>
+    host: <%= Rails.application.credentials.dig(:production, :db, :host) %>
+  # cache:
+  #   <<: *primary_production
+  #   database: ceruba_backend_production_cache
+  #   migrations_paths: db/cache_migrate
+  # queue:
+  #   <<: *primary_production
+  #   database: ceruba_backend_production_queue
+  #   migrations_paths: db/queue_migrate
+  # cable:
+  #   <<: *primary_production
+  #   database: ceruba_backend_production_cable
+  #   migrations_paths: db/cable_migrate
