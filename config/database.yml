@@ -81,10 +81,10 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: <%= Rails.application.credentials.dig(:production, :db, :database) %>
-    username: <%= Rails.application.credentials.dig(:production, :db, :username) %>
-    password: <%= Rails.application.credentials.dig(:production, :db, :password) %>
-    host: <%= Rails.application.credentials.dig(:production, :db, :host) %>
+    database: <%= ENV["DB_DATABASE"] %>
+    username: <%= ENV["DB_USERNAME"] %>
+    password: <%= ENV["DB_PASSWORD"] %>
+    host: <%= ENV["DB_HOST"] %>
   # cache:
   #   <<: *primary_production
   #   database: ceruba_backend_production_cache

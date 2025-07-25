@@ -1,10 +1,4 @@
 require "active_support/core_ext/integer/time"
-require "rails/application/configuration"
-require "active_support/encrypted_configuration"
-require "active_support/message_encryptor"
-require "active_support/key_generator"
-
-config.require_master_key = true
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
