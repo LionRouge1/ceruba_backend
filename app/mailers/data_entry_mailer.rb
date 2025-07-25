@@ -4,10 +4,18 @@ class DataEntryMailer < ApplicationMailer
   #
   #   en.data_entry_mailer.thank_you_email.subject
   #
-  def thank_you_email
-    @payload = params[:payload]
-    subject = "🌍 Welcome to Ceruba. Let’s Transform Corporate Travel Together"
+  def thank_you_email(payload, template)
+    email = payload["email"] || payload["Email"]
+    return unless email.present?
 
-    mail to: "to@example.org", subject: subject
+    liquid_subject_tem = Liquid::Template.parse(template.subject)
+    liquid_body_tem = Liquid::Template.parse(template.body)
+    liquid_html_body_tem = Liquid::Template.parse(template.html_body)
+
+    rendered_subject = liquid_subject_tem.render(payload)
+    @rendered_body = liquid_body_tem.render(payload)
+    @rendered_html_body = liquid_html_body_tem.render(payload)
+
+    mail(to: email, subject: rendered_subject)
   end
 end

@@ -1,5 +1,4 @@
 <div class="my-4 d-flex align-items-center">
-  <%= link_to "Edit this form", edit_form_path(@form), class: "btn btn-primary me-2" %>
   <div class="input-group me-2" style="max-width: 300px;">
     <input type="text" id="form-url" value="<%= @form_url %>" class="form-control" aria-label="Form's url" aria-describedby="button-addon2" readonly />
     <button class="btn btn-outline-secondary btn-sm" type="button" id="button-addon2" onclick="navigator.clipboard.writeText(document.getElementById('form-url').value)">Copy URL</button>
