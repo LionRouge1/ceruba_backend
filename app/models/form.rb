@@ -4,6 +4,7 @@ require 'caxlsx'
 
 class Form < ApplicationRecord
   belongs_to :website, optional: true
+  belongs_to :user
   has_many :data_entries, dependent: :destroy
   has_one :email_template, as: :emailable, dependent: :destroy
 

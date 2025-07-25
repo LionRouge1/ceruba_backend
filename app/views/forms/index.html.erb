@@ -1,5 +1,29 @@
 <% content_for :title, "Forms" %>
 
+<div class="mb-3" style="max-width: 500px;">
+  <label for="form-token" class="form-label">Token</label>
+  <div class="input-group">
+    <input type="password" id="form-token" class="form-control" value="<%= @token %>" readonly>
+    <button class="btn btn-outline-secondary" type="button" id="toggle-token-visibility" onclick="toggleTokenVisibility()" tabindex="-1">
+      <span id="eye-icon" class="bi bi-eye"></span>
+    </button>
+    <script>
+      function toggleTokenVisibility() {
+      const input = document.getElementById('form-token');
+      const eyeIcon = document.getElementById('eye-icon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        eyeIcon.className = 'bi bi-eye-slash';
+      } else {
+        input.type = 'password';
+        eyeIcon.className = 'bi bi-eye';
+      }
+      }
+    </script>
+    <button class="btn btn-outline-secondary" type="button" onclick="navigator.clipboard.writeText(document.getElementById('form-token').value)">Copy</button>
+  </div>
+</div>
+
 <h1 class="mb-4">Forms</h1>
 
 <div id="forms" class="row">

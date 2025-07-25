@@ -4,6 +4,7 @@ class FormsController < ApplicationController
   # GET /forms or /forms.json
   def index
     @forms = current_user.forms
+    @token = User.encrypt_id(current_user.id)
   end
 
   # GET /forms/1 or /forms/1.json
