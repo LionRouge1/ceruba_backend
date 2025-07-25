@@ -4,7 +4,9 @@ class DataEntryMailer < ApplicationMailer
   #
   #   en.data_entry_mailer.thank_you_email.subject
   #
-  def thank_you_email(payload, template)
+  def thank_you_email
+    payload = params[:payload]
+    template = params[:template]
     email = payload["email"] || payload["Email"]
     return unless email.present?
 

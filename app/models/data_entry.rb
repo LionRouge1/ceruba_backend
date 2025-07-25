@@ -6,13 +6,15 @@ class DataEntry < ApplicationRecord
   validates :origin, presence: true
   validates :payload, presence: true
 
+  after_commit :deliver_email_if_template_exists
+
   def data_payload
     JSON.parse(payload)
   end
 
   def deliver_email_if_template_exists
     if form.email_template.present?
-      DataEntryMailer.with(payload: data_payload, template: form.email_template).send_form_email.deliver_later
+      DataEntryMailer.with(payload: data_payload, template: form.email_template).thank_you_email.deliver_later
     end
   end
 end
