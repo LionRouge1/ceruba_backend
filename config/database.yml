@@ -81,13 +81,14 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: <%= ENV["DB_DATABASE"] %>
-    username: <%= ENV["DB_USERNAME"] %>
-    password: <%= ENV["DB_PASSWORD"] %>
-    host: <%= ENV["DB_HOST"] %>
-    port: <%= ENV["DB_PORT"] %>
+    # database: <%= ENV["DB_DATABASE"] %>
+    # username: <%= ENV["DB_USERNAME"] %>
+    # password: <%= ENV["DB_PASSWORD"] %>
+    # host: <%= ENV["DB_HOST"] %>
+    # port: <%= ENV["DB_PORT"] %>
     # If you are using a connection URL, you can specify it like this:
-    # url: <%= ENV["DATABASE_URL"] %>
+    url: postgresql://postgres:vaUeLTgwquRVrGKPRiAgmqVSfqGnQNuW@yamanote.proxy.rlwy.net:39418/railway
+    
   # cache:
   #   <<: *primary_production
   #   database: ceruba_backend_production_cache
