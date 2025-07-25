@@ -7,7 +7,7 @@ class DataEntryMailer < ApplicationMailer
   def thank_you_email
     payload = params[:payload]
     template = params[:template]
-    email = payload["email"] || payload["Email"] || payload["emailddress"] || payload["business_email"]
+    email = payload["email"] || payload["email_address"] || payload["address_email"] || payload["business_email"]
     return unless email.present?
 
     liquid_subject_tem = Liquid::Template.parse(template.subject)

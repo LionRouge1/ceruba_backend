@@ -9,7 +9,7 @@ class DataEntry < ApplicationRecord
   after_commit :deliver_email_if_template_exists
 
   def data_payload
-    JSON.parse(payload)
+    JSON.parse(payload).map { |key, value| [ key.downcase, value ] }.to_h
   end
 
   def deliver_email_if_template_exists
